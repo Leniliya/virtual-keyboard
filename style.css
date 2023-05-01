@@ -61,57 +61,56 @@
   background-color: #8387a1;
 }
 
-.keyboard__key_active {
-  background-color: #757a98;
-  color: #d8d3e0;
-  box-shadow: 0px 2px 3px 0px rgba(129, 123, 140, 0.5) inset;
-}
-
-.backspace {
+.Backspace {
   width: 13.4%;
   background-color: #8388a9;
 }
 
-.tab {
+.Tab {
   width: 6.6%;
   background-color: #8388a9;
 }
 
-.del {
-  background-color: #8388a9;  
-}
-
-.caps-lock {
+.CapsLock {
   width: 10%;
   background-color: #8388a9;  
 }
 
-.enter {
+.Enter {
   width: 15.6%;
   background-color: #8388a9;
 }
 
-.shift {
+.ShiftLeft,
+.ShiftRight {
   width: 12.8%;
   background-color: #8388a9;
 }
 
-.ctrl {
-  width: 6.1%;
-  background-color: #8388a9;
-}
-
-.win {
-  width: 6.1%;
-  background-color: #8388a9;
-}
-
-.alt {
-  width: 6.1%;
-  background-color: #8388a9;
-}
-
-.space {
+.Space {
   width: 43.8%;
   background-color: #8388a9;
+}
+
+.ControlLeft,
+.MetaRight,
+.AltLeft,
+.AltRight,
+.ControlRight {
+  width: 6.1%;
+  background-color: #8388a9;
+}
+
+.Delete,
+.ArrowUp,
+.ArrowLeft,
+.ArrowRight,
+.ArrowDown {
+  background-color: #8388a9;  
+}
+
+.keyboard__key.keyboard__key_active {
+  background-color: #757a98;
+  color: #d8d3e0;
+  box-shadow: 0px 2px 3px 0px rgba(129, 123, 140, 0.5) inset;
 }
