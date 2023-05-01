@@ -2,6 +2,7 @@ import keys from './keys.js';
 
 const BODY = document.querySelector('body');
 const simultaneouslyPressedKeys = new Set();
+let textarea;
 let lang;
 let keyboard;
 let keyboardContent;
@@ -10,7 +11,7 @@ function createBasicTemplate() {
   BODY.innerHTML = `<div class="wrapper">
   <h1 class="title">RSS Virtual Keyboard</h1>
   <div class="text-area__wrapper">
-    <textarea class="text-area" name="text-area" id="" cols="50" rows="17"></textarea>
+    <textarea class="text-area" name="text-area" id="" cols="50" rows="10"></textarea>
   </div>
   <div class="keyboard">
   </div>
@@ -18,6 +19,7 @@ function createBasicTemplate() {
     ctrl + alt</p>
 </div> `;
   keyboard = document.querySelector('.keyboard');
+  textarea = document.querySelector('.text-area');
 }
 
 function setLocalStorage() {
@@ -79,6 +81,13 @@ function removeHighlight(code) {
   });
 }
 
+function removeAllHighlight() {
+  const pressedKey = document.querySelectorAll('.keyboard__key');
+  pressedKey.forEach((key) => {
+    key.classList.remove('keyboard__key_active');
+  });
+}
+
 function isPressedCtrlAndAlt() {
   if (simultaneouslyPressedKeys.has('ControlLeft') && simultaneouslyPressedKeys.has('AltLeft')) {
     return true;
@@ -109,8 +118,46 @@ function changeLanguage(curLang) {
   }
 }
 
+function performKeyAction(inner) {
+  switch (inner) {
+    case 'Tab':
+      break;
+    case 'Shift':
+      break;
+    case 'Alt':
+      break;
+    case 'Backspace':
+      break;
+    case 'Enter':
+      break;
+    case 'CapsLock':
+      break;
+    case 'Win':
+      break;
+    case 'Del':
+      break;
+    case 'Ctrl':
+      break;
+    default:
+      textarea.value += inner;
+  }
+}
+
+function findInnerHtml(code) {
+  const pressedKey = document.querySelectorAll('.keyboard__key');
+  let result;
+  pressedKey.forEach((key) => {
+    if (key.classList.contains(`${code}`)) {
+      result = key.innerHTML;
+    }
+  });
+  return result;
+}
+
 document.addEventListener('keydown', (event) => {
+  const inner = findInnerHtml(event.code);
   highlightTheKey(event.code);
+  performKeyAction(inner);
   event.preventDefault();
   simultaneouslyPressedKeys.add(event.code);
   if (isPressedCtrlAndAlt() && !event.repeat) {
@@ -121,4 +168,15 @@ document.addEventListener('keydown', (event) => {
 document.addEventListener('keyup', (event) => {
   removeHighlight(event.code);
   simultaneouslyPressedKeys.delete(event.code);
+});
+
+document.addEventListener('mousedown', (event) => {
+  if (event.target.classList.contains('keyboard__key')) {
+    highlightTheKey(event.target.classList[1]);
+    performKeyAction(event.target.innerHTML);
+  }
+});
+
+document.addEventListener('mouseup', () => {
+  removeAllHighlight();
 });
