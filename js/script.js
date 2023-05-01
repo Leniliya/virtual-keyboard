@@ -35,3 +35,26 @@ function init() {
 }
 
 init();
+
+function highlightTheKey(code) {
+  keys.forEach(() => {
+    const pressedKey = document.querySelector(`.${code}`);
+    pressedKey.classList.add('keyboard__key_active');
+  });
+}
+
+function removeHighlight(code) {
+  keys.forEach(() => {
+    const pressedKey = document.querySelector(`.${code}`);
+    pressedKey.classList.remove('keyboard__key_active');
+  });
+}
+
+document.addEventListener('keydown', (event) => {
+  highlightTheKey(event.code);
+  event.preventDefault();
+});
+
+document.addEventListener('keyup', (event) => {
+  removeHighlight(event.code);
+});
