@@ -465,10 +465,10 @@ export default [
 
   {
     name: 'Space',
-    en: '',
-    enShiftDown: '',
-    ru: '',
-    ruShiftDown: '',
+    en: ' ',
+    enShiftDown: ' ',
+    ru: ' ',
+    ruShiftDown: ' ',
   },
 
   {

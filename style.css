@@ -3,7 +3,8 @@
   margin: 0 auto;
   text-align: center;
   font-family: Arial, Helvetica, sans-serif;
-  color: #74788f;
+  color: #4e5165;
+  user-select: none;
 }
 
 .text-area__wrapper {
@@ -19,6 +20,8 @@
   width: 99%;
   border-radius: 5px;
   border: 1px solid #9296b3;
+  font-size: 1.5em;
+  color: #4e5165;
 }
 
 .text-area:focus {
