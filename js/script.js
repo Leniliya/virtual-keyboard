@@ -41,7 +41,7 @@ function createKeyboard() {
   keys.forEach((key) => {
     const div = document.createElement('div');
     div.className = `keyboard__key ${key.name}`;
-    div.innerHTML = key[localStorage.getItem('lang')];
+    div.innerHTML = key[localStorage.getItem('lang') || 'en'];
     keyboardContent.append(div);
   });
 }
