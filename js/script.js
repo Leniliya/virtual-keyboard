@@ -1,6 +1,8 @@
 import keys from './keys.js';
 
 const BODY = document.querySelector('body');
+const simultaneouslyPressedKeys = new Set();
+let lang;
 let keyboard;
 let keyboardContent;
 
@@ -18,14 +20,41 @@ function createBasicTemplate() {
   keyboard = document.querySelector('.keyboard');
 }
 
+function setLocalStorage() {
+  localStorage.setItem('lang', lang);
+}
+
+function getLocalStorage() {
+  if (localStorage.getItem('lang')) {
+    lang = localStorage.getItem('lang');
+  } else {
+    lang = 'en';
+  }
+}
+
+window.addEventListener('beforeunload', setLocalStorage);
+window.addEventListener('load', getLocalStorage);
+
 function createKeyboard() {
   keyboard.innerHTML = '<div class="keyboard__content"></div>';
   keyboardContent = document.querySelector('.keyboard__content');
   keys.forEach((key) => {
     const div = document.createElement('div');
     div.className = `keyboard__key ${key.name}`;
-    div.innerHTML = key.en;
+    div.innerHTML = key[localStorage.getItem('lang') || 'en'];
     keyboardContent.append(div);
+  });
+}
+
+function changeKeyboardValues(currentLang) {
+  const keySet = document.querySelectorAll('.keyboard__key');
+  keySet.forEach((keyDiv) => {
+    keys.forEach((key) => {
+      if (keyDiv.classList.contains(key.name)) {
+        const div = keyDiv;
+        div.innerHTML = key[currentLang];
+      }
+    });
   });
 }
 
@@ -50,11 +79,46 @@ function removeHighlight(code) {
   });
 }
 
+function isPressedCtrlAndAlt() {
+  if (simultaneouslyPressedKeys.has('ControlLeft') && simultaneouslyPressedKeys.has('AltLeft')) {
+    return true;
+  }
+  return false;
+}
+
+function changeLanguage(curLang) {
+  switch (curLang) {
+    case 'en':
+      lang = 'ru';
+      changeKeyboardValues(lang);
+      break;
+    case 'ru':
+      lang = 'en';
+      changeKeyboardValues(lang);
+      break;
+    case 'ruShiftDown':
+      lang = 'enShiftDown';
+      changeKeyboardValues(lang);
+      break;
+    case 'enShiftDown':
+      lang = 'ruShiftDown';
+      changeKeyboardValues(lang);
+      break;
+    default:
+      changeKeyboardValues(lang);
+  }
+}
+
 document.addEventListener('keydown', (event) => {
   highlightTheKey(event.code);
   event.preventDefault();
+  simultaneouslyPressedKeys.add(event.code);
+  if (isPressedCtrlAndAlt() && !event.repeat) {
+    changeLanguage(lang);
+  }
 });
 
 document.addEventListener('keyup', (event) => {
   removeHighlight(event.code);
+  simultaneouslyPressedKeys.delete(event.code);
 });
