@@ -114,6 +114,7 @@
 
 .keyboard__key.keyboard__key_active {
   background-color: #757a98;
+  border-radius: 10px;
   color: #d8d3e0;
-  box-shadow: 0px 2px 3px 0px rgba(129, 123, 140, 0.5) inset;
+  box-shadow: 0px 2px 3px 0px rgba(102, 100, 107, 0.5) inset;
 }
