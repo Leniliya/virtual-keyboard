@@ -1,0 +1,116 @@
+.wrapper {
+  max-width: 930px;
+  margin: 0 auto;
+  text-align: center;
+  font-family: Arial, Helvetica, sans-serif;
+  color: #74788f;
+}
+
+.text-area__wrapper {
+  max-width: 930px;
+  background-color: #b7bacd;
+  border-radius: 10px;
+  padding: 15px;
+  margin-bottom: 20px;
+  box-shadow: 0px 5px 15px 0px rgba(129, 123, 140, 0.5);
+}
+
+.text-area {
+  width: 99%;
+  border-radius: 5px;
+  border: 1px solid #9296b3;
+}
+
+.text-area:focus {
+  outline: 1px solid #757a98;
+}
+
+.keyboard {
+  width: 100%;
+  background-color: #b7bacd;
+  border-radius: 10px;
+  box-shadow: 0px 5px 15px 0px rgba(129, 123, 140, 0.5);
+}
+
+.keyboard__content {
+  box-sizing: border-box;
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: space-around;
+  row-gap: 10px;
+  column-gap: 1%;
+  padding: 1.5%;
+}
+
+.keyboard__key {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  box-sizing: border-box;
+  width: 5.55%;
+  height: 50px;
+  background-color: #9296b3;
+  border-radius: 5px;
+  color: #e7e7ee;
+  box-shadow: 0px 2px 3px 0px rgba(129, 123, 140, 0.5);
+  transition: all 0.3s;
+}
+
+.keyboard__key:hover {
+  background-color: #8387a1;
+}
+
+.Backspace {
+  width: 13.4%;
+  background-color: #8388a9;
+}
+
+.Tab {
+  width: 6.6%;
+  background-color: #8388a9;
+}
+
+.CapsLock {
+  width: 10%;
+  background-color: #8388a9;  
+}
+
+.Enter {
+  width: 15.6%;
+  background-color: #8388a9;
+}
+
+.ShiftLeft,
+.ShiftRight {
+  width: 12.8%;
+  background-color: #8388a9;
+}
+
+.Space {
+  width: 43.8%;
+  background-color: #8388a9;
+}
+
+.ControlLeft,
+.MetaRight,
+.AltLeft,
+.AltRight,
+.ControlRight {
+  width: 6.1%;
+  background-color: #8388a9;
+}
+
+.Delete,
+.ArrowUp,
+.ArrowLeft,
+.ArrowRight,
+.ArrowDown {
+  background-color: #8388a9;  
+}
+
+.keyboard__key.keyboard__key_active {
+  background-color: #757a98;
+  color: #d8d3e0;
+  box-shadow: 0px 2px 3px 0px rgba(129, 123, 140, 0.5) inset;
+}
