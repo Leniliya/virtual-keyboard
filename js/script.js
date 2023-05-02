@@ -69,8 +69,10 @@ init();
 
 function highlightTheKey(code) {
   keys.forEach(() => {
-    const pressedKey = document.querySelector(`.${code}`);
-    pressedKey.classList.add('keyboard__key_active');
+    if (!code === 'CapsLock') {
+      const pressedKey = document.querySelector(`.${code}`);
+      pressedKey.classList.add('keyboard__key_active');
+    }
   });
 }
 
@@ -84,7 +86,9 @@ function removeHighlight(code) {
 function removeAllHighlight() {
   const pressedKey = document.querySelectorAll('.keyboard__key');
   pressedKey.forEach((key) => {
-    key.classList.remove('keyboard__key_active');
+    if (!key === 'CapsLock') {
+      key.classList.remove('keyboard__key_active');
+    }
   });
 }
 
@@ -118,19 +122,68 @@ function changeLanguage(curLang) {
   }
 }
 
+function performShift() {
+  let caps = lang;
+  const shiftLeft = document.querySelector('.ShiftLeft');
+  const shiftRight = document.querySelector('.ShiftRight');
+  if (shiftLeft.classList.contains('keyboard__key_active') || shiftRight.classList.contains('keyboard__key_active')) {
+    if (caps === 'en') {
+      caps = 'enShiftDown';
+    } else if (caps === 'ru') {
+      caps = 'ruShiftDown';
+    }
+  } else if (caps === 'enShiftDown') {
+    caps = 'en';
+  } else if (caps === 'ruShiftDown') {
+    caps = 'ru';
+  }
+
+  changeKeyboardValues(caps);
+}
+
+function performCapsLock() {
+  let caps = lang;
+  const capslockKey = document.querySelector('.CapsLock');
+  capslockKey.classList.toggle('keyboard__key_active');
+  if (capslockKey.classList.contains('keyboard__key_active')) {
+    if (caps === 'en') {
+      caps = 'enShiftDown';
+    } else if (caps === 'ru') {
+      caps = 'ruShiftDown';
+    }
+  } else if (caps === 'enShiftDown') {
+    caps = 'en';
+  } else if (caps === 'ruShiftDown') {
+    caps = 'ru';
+  }
+  const keySet = document.querySelectorAll('.keyboard__key');
+  keySet.forEach((keyDiv) => {
+    keys.forEach((key) => {
+      if (keyDiv.classList.contains(key.name)) {
+        const div = keyDiv;
+        div.innerHTML = key[caps];
+      }
+    });
+  });
+}
+
 function performKeyAction(inner) {
   switch (inner) {
     case 'Tab':
+      textarea.value += '\t';
       break;
     case 'Shift':
+      performShift();
       break;
     case 'Alt':
       break;
     case 'Backspace':
       break;
     case 'Enter':
+      textarea.value += '\n';
       break;
     case 'CapsLock':
+      performCapsLock();
       break;
     case 'Win':
       break;
@@ -168,12 +221,14 @@ document.addEventListener('keydown', (event) => {
 document.addEventListener('keyup', (event) => {
   removeHighlight(event.code);
   simultaneouslyPressedKeys.delete(event.code);
+  performShift();
 });
 
 document.addEventListener('mousedown', (event) => {
   if (event.target.classList.contains('keyboard__key')) {
     highlightTheKey(event.target.classList[1]);
     performKeyAction(event.target.innerHTML);
+    performShift();
   }
 });
 
