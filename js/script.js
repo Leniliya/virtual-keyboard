@@ -69,7 +69,7 @@ init();
 
 function highlightTheKey(code) {
   keys.forEach(() => {
-    if (!code === 'CapsLock') {
+    if (code !== 'CapsLock') {
       const pressedKey = document.querySelector(`.${code}`);
       pressedKey.classList.add('keyboard__key_active');
     }
@@ -86,7 +86,7 @@ function removeHighlight(code) {
 function removeAllHighlight() {
   const pressedKey = document.querySelectorAll('.keyboard__key');
   pressedKey.forEach((key) => {
-    if (!key === 'CapsLock') {
+    if (key !== 'CapsLock') {
       key.classList.remove('keyboard__key_active');
     }
   });
